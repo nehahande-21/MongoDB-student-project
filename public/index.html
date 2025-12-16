@@ -21,8 +21,9 @@
 <ul id="students"></ul>
 
 <script>
+/* LOAD STUDENTS */
 async function loadStudents() {
-  const res = await fetch("/students");
+  const res = await fetch("/api/students");
   const students = await res.json();
 
   const list = document.getElementById("students");
@@ -38,6 +39,7 @@ async function loadStudents() {
   });
 }
 
+/* ADD STUDENT */
 async function addStudent() {
   const student = {
     studentId: document.getElementById("studentId").value,
@@ -48,7 +50,7 @@ async function addStudent() {
     attendance: Number(document.getElementById("attendance").value)
   };
 
-  await fetch("/add", {
+  await fetch("/api/add", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(student)
@@ -57,8 +59,9 @@ async function addStudent() {
   loadStudents();
 }
 
+/* DELETE STUDENT */
 async function deleteStudent(id) {
-  await fetch(`/delete/${id}`, { method: "DELETE" });
+  await fetch(`/api/delete?id=${id}`, { method: "DELETE" });
   loadStudents();
 }
 
